@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script src="script.js" defer></script>
+    <title>Registration Form</title>
+  </head>
+  <body>
+    <form action="#" class="form">
+        <img class="logo" src="img/BBVA_NEGRO_RGB.png" width="100px" height="60px">
+      <h1 class="text-center">Emisión</h1>
+      <!-- Progress bar -->
+      <div class="progressbar">
+        <div class="progress" id="progress"></div>
+        <div class="progress-step progress-step-active" data-title=""></div>
+        <div class="progress-step" data-title=""></div>
+        <div class="progress-step" data-title=""></div>
+      </div>
+
+      <!-- Steps -->
+      <div class="form-step form-step-active">
+        <div class="input-group">
+          <label for="identifierType">Identificador</label>
+          <select name="identifierType" id="identifierType">
+              <option value="DNI">DNI</option>
+              <option value="ADDRESS">ADDRESS</option>
+          </select>
+        </div>
+        <div class="input-group">
+            <label for="username" id="usernameLabel">Address</label>
+            <input type="text" name="username" id="username" />
+        </div>
+        <div class="input-group">
+            <label for="position">Monto</label>
+            <input type="text" name="position" id="position" />
+        </div>
+        <div class="">
+            <a href="#" class="btn btn-next width-50 ml-auto">Next</a>
+        </div>
+      </div>
+
+      <div class="form-step">
+        <div class="input-group">
+          <label for="tipo">Tipo</label>
+          <select name="tipo" id="tipo">
+            <option value="convencional">Convencional</option>
+            <option value="certificado">Certificado</option>
+            <option value="diferido">Diferido</option>
+          </select>
+        </div>
+        <div class="input-group" id="fechaCobroGroup" style="display:none;">
+          <label for="fechaCobro">Fecha de cobro</label>
+          <input type="date" name="fechaCobro" id="fechaCobro" />
+        </div>
+        <div class="btns-group">
+          <a href="#" class="btn btn-prev">Previous</a>
+          <a href="#" class="btn btn-next">Next</a>
+        </div>
+      </div>
+
+      <div class="form-step">
+        <p><strong>Resumen:</strong></p>
+        <p>Address: <span id="summary-address"></span></p>
+        <p>Monto: <span id="summary-monto"></span></p>
+        <p>Tipo: <span id="summary-tipo"></span></p>
+        <p>Fecha de cobro: <span id="summary-fechaCobro"></span></p>
+        <div class="btns-group">
+          <a href="#" class="btn btn-prev">Previous</a>
+          <input type="submit" value="Submit" class="btn" />
+        </div>
+      </div>
+    </form>
+  </body>
+</html>
