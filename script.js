@@ -73,33 +73,55 @@ function updateSummary() {
 
 
 document.querySelector("form").addEventListener("submit", function(event) {
-    event.preventDefault();  // Evitar el envío real del formulario
-  
-    // Simulando llamada al backend con un timer
-    swal.fire({
-        title: 'Emitiendo cheque...',
-        text: 'Por favor espera',
-        timer: 2000,  // Por ejemplo, 2 segundos
-        timerProgressBar: true,
-        allowOutsideClick: false,
-        onBeforeOpen: () => {
-            swal.showLoading()
-        }
-    }).then((result) => {
-        if (result.dismiss === swal.DismissReason.timer) {
-            swal.fire({
-                title: 'Éxito',
-                text: 'Cheque emitido con éxito',
-                icon: 'success'
-            }).then(() => {
-                // Una vez que se cierra el SweetAlert de éxito:
-                formStepsNum = 0;
-                updateFormSteps();
-                updateProgressbar();
-                document.querySelector("form").reset();
-                fechaCobroGroup.style.display = "none"; // Ocultar el campo "Fecha de cobro" si estaba visible
-                usernameLabel.textContent = "DNI"; // Restablecer el label a "DNI"
-            });
-        }
-    });
+  event.preventDefault();  // Evitar el envío real del formulario
+
+  // Primero mostramos el swal para ingresar la contraseña
+  swal.fire({
+      title: 'Ingresa tu contraseña',
+      input: 'password',
+      inputPlaceholder: 'Tu contraseña',
+      showCancelButton: true,
+      confirmButtonText: 'Confirmar',
+      cancelButtonText: 'Cancelar'
+  }).then((result) => {
+      if (result.isConfirmed) {
+          if (result.value === "lucho") {
+              // Si la contraseña es correcta, mostrar el swal de "Emitiendo cheque..."
+              swal.fire({
+                  title: 'Emitiendo cheque...',
+                  text: 'Por favor espera',
+                  timer: 2000,
+                  timerProgressBar: false,
+                  allowOutsideClick: false,
+                  showConfirmButton: false, // Esta línea elimina el botón "OK"
+                  onBeforeOpen: () => {
+                      swal.showLoading();
+                  }
+              }).then((timerResult) => {
+                  if (timerResult.dismiss === swal.DismissReason.timer) {
+                      swal.fire({
+                          title: 'Éxito',
+                          text: 'Cheque emitido con éxito',
+                          icon: 'success'
+                      }).then(() => {
+                          // Una vez que se cierra el SweetAlert de éxito:
+                          formStepsNum = 0;
+                          updateFormSteps();
+                          updateProgressbar();
+                          document.querySelector("form").reset();
+                          fechaCobroGroup.style.display = "none"; // Ocultar el campo "Fecha de cobro" si estaba visible
+                          usernameLabel.textContent = "DNI"; // Restablecer el label a "DNI"
+                      });
+                  }
+              });
+          } else {
+              // Si la contraseña es incorrecta, mostrar un mensaje de error
+              swal.fire({
+                  title: 'Error',
+                  text: 'Contraseña incorrecta',
+                  icon: 'error'
+              });
+          }
+      }
   });
+});
